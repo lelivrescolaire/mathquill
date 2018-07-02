@@ -8,18 +8,18 @@
 # call has parentheses and single and double quotes, the quoted syntaxes
 # don't work (I tried), we HAVE to use the paren+comma syntax
 ifneq ($(shell node -e 'console.log("I am Node.js")'), I am Node.js)
-  ifeq ($(shell nodejs -e 'console.log("I am Node.js")' 2>/dev/null), I am Node.js)
-    $(error You have /usr/bin/nodejs but no /usr/bin/node, please 'sudo apt-get install nodejs-legacy' (see http://stackoverflow.com/a/21171188/362030 ))
-  endif
+	ifeq ($(shell nodejs -e 'console.log("I am Node.js")' 2>/dev/null), I am Node.js)
+		$(error You have /usr/bin/nodejs but no /usr/bin/node, please 'sudo apt-get install nodejs-legacy' (see http://stackoverflow.com/a/21171188/362030 ))
+	endif
 
-  $(error Please install Node.js: https://nodejs.org/ )
+	$(error Please install Node.js: https://nodejs.org/ )
 endif
 
 # stupid GNU vs BSD https://github.com/mathquill/mathquill/pull/653/commits/4332b0e97a92fb1362123a06b68fa49d9efb6f38#r68305423
 ifeq (x, $(shell echo xy | sed -r 's/(x)y/\1/' 2>/dev/null))
-  SED_IN_PLACE = sed -i    # GNU
+	SED_IN_PLACE = sed -i    # GNU
 else
-  SED_IN_PLACE = sed -i '' # BSD
+	SED_IN_PLACE = sed -i '' # BSD
 endif
 
 
@@ -35,28 +35,28 @@ OUTRO = $(SRC_DIR)/outro.js
 PJS_SRC = ./node_modules/pjs/src/p.js
 
 BASE_SOURCES = \
-  $(PJS_SRC) \
-  $(SRC_DIR)/tree.js \
-  $(SRC_DIR)/cursor.js \
-  $(SRC_DIR)/controller.js \
-  $(SRC_DIR)/publicapi.js \
-  $(SRC_DIR)/services/*.util.js \
-  $(SRC_DIR)/services/*.js
+	$(PJS_SRC) \
+	$(SRC_DIR)/tree.js \
+	$(SRC_DIR)/cursor.js \
+	$(SRC_DIR)/controller.js \
+	$(SRC_DIR)/publicapi.js \
+	$(SRC_DIR)/services/*.util.js \
+	$(SRC_DIR)/services/*.js
 
 SOURCES_FULL = \
-  $(BASE_SOURCES) \
-  $(SRC_DIR)/commands/math.js \
-  $(SRC_DIR)/commands/text.js \
-  $(SRC_DIR)/commands/math/*.js
+	$(BASE_SOURCES) \
+	$(SRC_DIR)/commands/math.js \
+	$(SRC_DIR)/commands/text.js \
+	$(SRC_DIR)/commands/math/*.js
 # FIXME text.js currently depends on math.js (#435), restore these when fixed:
 # $(SRC_DIR)/commands/*.js \
 # $(SRC_DIR)/commands/*/*.js
 
 SOURCES_BASIC = \
-  $(BASE_SOURCES) \
-  $(SRC_DIR)/commands/math.js \
-  $(SRC_DIR)/commands/math/basicSymbols.js \
-  $(SRC_DIR)/commands/math/commands.js
+	$(BASE_SOURCES) \
+	$(SRC_DIR)/commands/math.js \
+	$(SRC_DIR)/commands/math/basicSymbols.js \
+	$(SRC_DIR)/commands/math/commands.js
 
 CSS_DIR = $(SRC_DIR)/css
 CSS_MAIN = $(CSS_DIR)/main.less
@@ -64,6 +64,14 @@ CSS_SOURCES = $(shell find $(CSS_DIR) -name '*.less')
 
 FONT_SOURCE = $(SRC_DIR)/fonts
 FONT_TARGET = $(BUILD_DIR)/fonts
+
+COPY_SOURCE = \
+	./README.md \
+	./package.json \
+	./quickstart.html \
+	./index.js
+
+COPY_TARGET = $(BUILD_DIR)/index.js
 
 UNIT_TESTS = ./test/unit/*.test.js
 
@@ -86,7 +94,7 @@ UGLIFY_OPTS ?= --mangle --compress hoist_vars=true --comments /maintainers@mathq
 LESSC ?= ./node_modules/.bin/lessc
 LESS_OPTS ?=
 ifdef OMIT_FONT_FACE
-  LESS_OPTS += --modify-var="omit-font-face=true"
+	LESS_OPTS += --modify-var="omit-font-face=true"
 endif
 
 # Empty target files whose Last Modified timestamps are used to record when
@@ -103,15 +111,17 @@ BUILD_DIR_EXISTS = $(BUILD_DIR)/.exists--used_by_Makefile
 # -*- Build tasks -*-
 #
 
-.PHONY: all basic dev js uglify css font clean
-all: font css uglify
+.PHONY: all basic dev js uglify css font clean copy
+all: copy font css uglify
 basic: $(UGLY_BASIC_JS) $(BASIC_CSS)
 # dev is like all, but without minification
-dev: font css js
+dev: font css js copy
 js: $(BUILD_JS)
 uglify: $(UGLY_JS)
 css: $(BUILD_CSS)
 font: $(FONT_TARGET)
+copy:
+	cp -r ./README.md ./index.js ./quickstart.html $(BUILD_DIR)
 clean:
 	rm -rf $(BUILD_DIR)
 
