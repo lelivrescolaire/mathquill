@@ -1,7 +1,7 @@
 {
   "name": "@lls/mathquill",
   "description": "Easily type math in your webapp",
-  "version": "0.11.4",
+  "version": "0.11.5",
   "license": "MPL-2.0",
   "repository": {
     "url": "github.com/lelivrescolaire/mathquill"
