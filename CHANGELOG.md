@@ -1,3 +1,13 @@
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/lelivrescolaire/mathquill/compare/v0.10.1...v0.11.0) (2018-07-02)
+
+
+### Bug Fixes
+
+* api name error ([a1cab26](https://github.com/lelivrescolaire/mathquill/commit/a1cab26))
+
+
+
 ## v0.10.1: Fix `font-size: 0` typing problems and more
 
 _2016-03-21_
