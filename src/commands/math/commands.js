@@ -515,6 +515,18 @@ var Hat = LatexCmds.hat = P(MathCommand, function(_, super_) {
   _.textTemplate = ['hat(', ')'];
 });
 
+var Widehat = LatexCmds.widehat = P(MathCommand, function(_, super_) {
+  _.ctrlSeq= '\\widehat';
+  _.htmlTemplate =
+      '<span class="mq-non-leaf">'
+    +   '<span class="mq-widehat-prefix">'
+    +     '<svg width="100%" height="0.5em" viewBox="0 0 2364 300" preserveAspectRatio="none"><path d="M1181 0h2l1171 176c6 0 10 5 10 11l-2 23c-1 6-5 10 -11 10h-1L1182 67 15 220h-1c-6 0-10-4-11-10l-2-23c-1-6 4-11 10-11z"></path></svg>'
+    +   '</span>'
+    +   '<span class="mq-widehat-stem">&0</span>'
+    + '</span>'
+});
+
+
 var NthRoot =
 LatexCmds.nthroot = P(SquareRoot, function(_, super_) {
   _.htmlTemplate =

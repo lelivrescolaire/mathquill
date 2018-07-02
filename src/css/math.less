@@ -4,7 +4,6 @@
   padding: 2px;
   .box-sizing(border-box); // supported by IE8+: http://caniuse.com/css3-boxsizing
   white-space: nowrap;
-  overflow: hidden;
   vertical-align: middle;
 }
 .mq-math-mode {
@@ -17,6 +16,26 @@
   .inline-block;
   .mq-non-leaf, .mq-scaled {
     .inline-block;
+    position: relative;
+  }
+
+  .mq-non-leaf svg {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: inherit;
+    fill: currentColor;
+    stroke: currentColor;
+    fill-rule: nonzero;
+    fill-opacity: 1;
+    stroke-width: 1px;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-miterlimit: 4;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    stroke-opacity: 1;
+    top: -0.2em;
   }
 
   // TODO: dasherize non-symbola
@@ -50,7 +69,7 @@
 
   .mq-text-mode {
     display: inline-block;
-    white-space: pre;  
+    white-space: pre;
   }
 
   .mq-text-mode.mq-hasCursor {
@@ -311,7 +330,7 @@
     display: block;
     text-align: center;
   }
-  
+
   .mq-hat-prefix {
     display: block;
     text-align: center;
@@ -324,6 +343,20 @@
   }
 
   .mq-hat-stem {
+    display: block;
+  }
+
+  .mq-widehat-prefix {
+    display: block;
+    text-align: center;
+    line-height: .95em;
+    transform: scaleY(1.5);
+    -moz-transform: scaleY(1.5);
+    -o-transform: scaleY(1.5);
+    -webkit-transform: scaleY(1.5);
+  }
+
+  .mq-widehat-stem {
     display: block;
   }
 
